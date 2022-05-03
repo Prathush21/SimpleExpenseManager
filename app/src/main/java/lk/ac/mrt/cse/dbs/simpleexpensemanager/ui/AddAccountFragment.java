@@ -38,12 +38,14 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
     private EditText accountHolderName;
     private EditText initialBalance;
     private Button addAccount;
+    DbHelper mydb;
 
-    public static AddAccountFragment newInstance(ExpenseManager expenseManager) {
+    public static AddAccountFragment newInstance(ExpenseManager expenseManager,DbHelper mydb) {
         AddAccountFragment addAccountFragment = new AddAccountFragment();
         Bundle args = new Bundle();
         args.putSerializable(EXPENSE_MANAGER, expenseManager);
         addAccountFragment.setArguments(args);
+        mydb=mydb;
         return addAccountFragment;
     }
 
@@ -95,8 +97,9 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
                 }
 
                 if (currentExpenseManager != null) {
+                    System.out.println("Hi");
                     currentExpenseManager.addAccount(accountNumStr, bankNameStr, accountHolderStr,
-                            Double.parseDouble(initialBalanceStr));
+                            Double.parseDouble(initialBalanceStr),this.mydb);
                 }
                 cleanUp();
                 break;

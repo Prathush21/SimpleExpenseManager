@@ -28,6 +28,7 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountExcep
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.DbHelper;
 
 /**
  * The ExpenseManager acts as the mediator when performing transactions. This is an abstract class with an abstract
@@ -87,10 +88,14 @@ public abstract class ExpenseManager implements Serializable {
      * @param accountHolderName
      * @param initialBalance
      */
-    public void addAccount(String accountNo, String bankName, String accountHolderName, double initialBalance) {
+    public void addAccount(String accountNo, String bankName, String accountHolderName, double initialBalance, DbHelper mydb) {
         Account account = new Account(accountNo, bankName, accountHolderName, initialBalance);
-        accountsHolder.addAccount(account);
+        accountsHolder.addAccount(account,mydb);
     }
+//    public void addAccount(String accountNo, String bankName, String accountHolderName, double initialBalance) {
+//        Account account = new Account(accountNo, bankName, accountHolderName, initialBalance);
+//        accountsHolder.addAccount(account);
+//    }
 
     /***
      * Get access to the AccountDAO concrete implementation.

@@ -27,10 +27,12 @@ import android.support.v7.widget.Toolbar;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.InMemoryDemoExpenseManager;
+//import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.InMemoryDemoExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
 
 public class MainActivity extends AppCompatActivity {
     private ExpenseManager expenseManager;
+    DbHelper myDb;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -65,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         /***  Begin generating dummy data for In-Memory implementation  ***/
-        expenseManager = new InMemoryDemoExpenseManager();
+
+        myDb= new DbHelper(this);
+        expenseManager = new PersistentExpenseManager(myDb);
         /*** END ***/
     }
 
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return ManageExpensesFragment.newInstance(expenseManager);
                 case 1:
-                    return AddAccountFragment.newInstance(expenseManager);
+                    return AddAccountFragment.newInstance(expenseManager,myDb);
                 case 2:
                     return ExpenseLogsFragment.newInstance(expenseManager);
                 default:

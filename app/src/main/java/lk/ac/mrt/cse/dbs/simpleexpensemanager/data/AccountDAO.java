@@ -21,6 +21,7 @@ import java.util.List;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.DbHelper;
 
 /**
  * AccountDAO interface can be used to access the account details, including listing, adding, updating, removing
@@ -56,7 +57,8 @@ public interface AccountDAO {
      *
      * @param account - the account to be added.
      */
-    public void addAccount(Account account);
+    public void addAccount(Account account, DbHelper mydb);
+
 
     /***
      * Remove an account from the accounts collection.
