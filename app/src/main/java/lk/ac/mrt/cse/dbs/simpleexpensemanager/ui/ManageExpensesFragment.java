@@ -31,6 +31,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import java.text.DecimalFormat;
+
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
@@ -47,12 +49,14 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
     private RadioGroup expenseTypeGroup;
     private DatePicker datePicker;
     private ExpenseManager currentExpenseManager;
+    static DbHelper myDb;
 
-    public static ManageExpensesFragment newInstance(ExpenseManager expenseManager) {
+    public static ManageExpensesFragment newInstance(ExpenseManager expenseManager,DbHelper db) {
         ManageExpensesFragment manageExpensesFragment = new ManageExpensesFragment();
         Bundle args = new Bundle();
         args.putSerializable(EXPENSE_MANAGER, expenseManager);
         manageExpensesFragment.setArguments(args);
+        myDb = db;
         return manageExpensesFragment;
     }
 
@@ -97,14 +101,16 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
                 int month = datePicker.getMonth();
                 int year = datePicker.getYear();
 
+
                 if (amountStr.isEmpty()) {
                     amount.setError(getActivity().getString(R.string.err_amount_required));
                 }
 
                 if (currentExpenseManager != null) {
                     try {
+
                         currentExpenseManager.updateAccountBalance(selectedAccount, day, month, year,
-                                ExpenseType.valueOf(type.toUpperCase()), amountStr);
+                                ExpenseType.valueOf(type.toUpperCase()), amountStr,myDb);
                     } catch (InvalidAccountException e) {
                         new AlertDialog.Builder(this.getActivity())
                                 .setTitle(this.getString(R.string.msg_account_update_unable) + selectedAccount)

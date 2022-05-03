@@ -21,6 +21,7 @@ import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.DbHelper;
 
 /**
  * TransactionDAO interface can be used to access the log of transactions requested by the user.
@@ -35,7 +36,7 @@ public interface TransactionDAO {
      * @param expenseType - type of the expense
      * @param amount      - amount involved
      */
-    public void logTransaction(Date date, String accountNo, ExpenseType expenseType, double amount);
+    public void logTransaction(String  date, String accountNo, ExpenseType expenseType, double amount, DbHelper db);
 
     /***
      * Return all the transactions logged.

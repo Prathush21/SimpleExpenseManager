@@ -16,6 +16,7 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.DbHelper;
 
 /**
  * This is an In-Memory implementation of TransactionDAO interface. This is not a persistent storage. All the
@@ -31,14 +33,17 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 public class PersistentMemoryTransactionDAO implements TransactionDAO {
     private final List<Transaction> transactions;
 
-    public PersistentMemoryTransactionDAO() {
-        transactions = new LinkedList<>();
+    public PersistentMemoryTransactionDAO(DbHelper db)  {
+
+        transactions = db.getTransData();
     }
 
     @Override
-    public void logTransaction(Date date, String accountNo, ExpenseType expenseType, double amount) {
+    public void logTransaction(String date, String accountNo, ExpenseType expenseType, double amount, DbHelper mydb) {
         Transaction transaction = new Transaction(date, accountNo, expenseType, amount);
-        transactions.add(transaction);
+        mydb.insertTransData(transaction.getDate().toString(),transaction.getAccountNo(),transaction.getExpenseType().toString(), transaction.getAmount());
+
+        //transactions.add(transaction);
     }
 
     @Override

@@ -19,8 +19,9 @@ package lk.ac.mrt.cse.dbs.simpleexpensemanager.control;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 //import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.InMemoryAccountDAO;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.InMemoryTransactionDAO;
+//import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.InMemoryTransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentMemoryAccountDAO;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentMemoryTransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.DbHelper;
 
@@ -39,17 +40,17 @@ public class PersistentExpenseManager extends ExpenseManager {
     public void setup() {
         /*** Begin generating dummy data for In-Memory implementation ***/
 
-        TransactionDAO inMemoryTransactionDAO = new InMemoryTransactionDAO();
+        TransactionDAO inMemoryTransactionDAO = new PersistentMemoryTransactionDAO(mydb);
         setTransactionsDAO(inMemoryTransactionDAO);
 
-        AccountDAO inMemoryAccountDAO = new PersistentMemoryAccountDAO();
-        setAccountsDAO(inMemoryAccountDAO);
+        AccountDAO PersistentAccountDAO = new PersistentMemoryAccountDAO(mydb);
+        setAccountsDAO(PersistentAccountDAO);
 
         // dummy data
-        Account dummyAcct1 = new Account("12345A", "Yoda Bank", "Anakin Skywalker", 10000.0);
-        Account dummyAcct2 = new Account("78945Z", "Clone BC", "Obi-Wan Kenobi", 80000.0);
-        getAccountsDAO().addAccount(dummyAcct1,this.mydb);
-        getAccountsDAO().addAccount(dummyAcct2,this.mydb);
+//        Account dummyAcct1 = new Account("12345A", "Yoda Bank", "Anakin Skywalker", 10000.0);
+//        Account dummyAcct2 = new Account("78945Z", "Clone BC", "Obi-Wan Kenobi", 80000.0);
+//        getAccountsDAO().addAccount(dummyAcct1,this.mydb);
+//        getAccountsDAO().addAccount(dummyAcct2,this.mydb);
 
         /*** End ***/
     }

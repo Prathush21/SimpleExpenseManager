@@ -36,11 +36,9 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.DbHelper;
 public class PersistentMemoryAccountDAO implements AccountDAO {
     private final Map<String, Account> accounts;
 
-    public PersistentMemoryAccountDAO() {
+    public PersistentMemoryAccountDAO(DbHelper db) {
         //SQLiteDatabase db = DbHelper.
-
-
-        this.accounts = new HashMap<>();
+        this.accounts = db.getData();
 
     }
 
@@ -82,12 +80,13 @@ public class PersistentMemoryAccountDAO implements AccountDAO {
     }
 
     @Override
-    public void updateBalance(String accountNo, ExpenseType expenseType, double amount) throws InvalidAccountException {
+    public void updateBalance(String accountNo, ExpenseType expenseType, double amount,DbHelper mydb) throws InvalidAccountException {
         if (!accounts.containsKey(accountNo)) {
             String msg = "Account " + accountNo + " is invalid.";
             throw new InvalidAccountException(msg);
         }
-        Account account = accounts.get(accountNo);
+
+        Account account = mydb.getAccount(accountNo);
         // specific implementation based on the transaction type
         switch (expenseType) {
             case EXPENSE:
@@ -97,6 +96,7 @@ public class PersistentMemoryAccountDAO implements AccountDAO {
                 account.setBalance(account.getBalance() + amount);
                 break;
         }
-        accounts.put(accountNo, account);
+        mydb.updateBalance(account.getBalance(),accountNo);
+
     }
 }

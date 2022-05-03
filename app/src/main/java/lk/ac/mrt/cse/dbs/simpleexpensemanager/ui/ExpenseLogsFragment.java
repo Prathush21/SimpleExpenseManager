@@ -72,9 +72,9 @@ public class ExpenseLogsFragment extends Fragment {
             TableRow tr = new TableRow(rootView.getContext());
             TextView lDateVal = new TextView(rootView.getContext());
 
-            SimpleDateFormat sdf = new SimpleDateFormat(getActivity().getString(R.string.config_date_log_pattern));
-            String formattedDate = sdf.format(transaction.getDate());
-            lDateVal.setText(formattedDate);
+//            SimpleDateFormat sdf = new SimpleDateFormat(getActivity().getString(R.string.config_date_log_pattern));
+//            String formattedDate = sdf.format(transaction.getDate());
+            lDateVal.setText(transaction.getDate());
             tr.addView(lDateVal);
 
             TextView lAccountNoVal = new TextView(rootView.getContext());

@@ -17,6 +17,8 @@
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.control;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -59,15 +61,21 @@ public abstract class ExpenseManager implements Serializable {
      * @throws InvalidAccountException
      */
     public void updateAccountBalance(String accountNo, int day, int month, int year, ExpenseType expenseType,
-                                     String amount) throws InvalidAccountException {
+                                     String amount,DbHelper db) throws InvalidAccountException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         Date transactionDate = calendar.getTime();
+        //String date1= transactionDate.toString();
+        DecimalFormat formatter = new DecimalFormat("00");
+        String day1 = formatter.format(day);
+        String month1 = formatter.format(month);
+
+        String date = day1+"-"+month1+"-"+Integer.toString(year);
 
         if (!amount.isEmpty()) {
             double amountVal = Double.parseDouble(amount);
-            transactionsHolder.logTransaction(transactionDate, accountNo, expenseType, amountVal);
-            accountsHolder.updateBalance(accountNo, expenseType, amountVal);
+            transactionsHolder.logTransaction(date ,accountNo, expenseType, amountVal,db);
+            accountsHolder.updateBalance(accountNo, expenseType, amountVal,db);
         }
     }
 

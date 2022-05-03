@@ -89,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
             // Return the respective fragment.
             switch (position) {
                 case 0:
-                    return ManageExpensesFragment.newInstance(expenseManager);
+                    return ManageExpensesFragment.newInstance(expenseManager,myDb);
                 case 1:
                     return AddAccountFragment.newInstance(expenseManager,myDb);
                 case 2:
                     return ExpenseLogsFragment.newInstance(expenseManager);
                 default:
-                    return ManageExpensesFragment.newInstance(expenseManager);
+                    return ManageExpensesFragment.newInstance(expenseManager,myDb);
             }
         }
 
