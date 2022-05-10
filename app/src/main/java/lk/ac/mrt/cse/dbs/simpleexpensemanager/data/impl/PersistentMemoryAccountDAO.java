@@ -34,7 +34,7 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.DbHelper;
  * used to store the account details temporarily in the memory.
  */
 public class PersistentMemoryAccountDAO implements AccountDAO {
-    private final Map<String, Account> accounts;
+    private  Map<String, Account> accounts;
 
     public PersistentMemoryAccountDAO(DbHelper db) {
         //SQLiteDatabase db = DbHelper.
@@ -64,6 +64,7 @@ public class PersistentMemoryAccountDAO implements AccountDAO {
 
     public void addAccount(Account account,DbHelper mydb) {
         mydb.insertData(account.getAccountNo(),account.getBankName(),account.getAccountHolderName(),account.getBalance());
+        this.accounts = mydb.getData();
 
 
 
