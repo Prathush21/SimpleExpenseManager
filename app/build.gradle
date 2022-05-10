@@ -26,7 +26,10 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-    }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //testInstrumentationRunner "android.test.runner.AndroidJUnitRunner"
+        }
     buildTypes {
         release {
             minifyEnabled false
@@ -37,7 +40,20 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    androidTestImplementation "androidx.test:core:1.4.1-alpha86"
+    androidTestImplementation "androidx.test.ext:junit:1.1.4-alpha06"
+
+    androidTestImplementation "androidx.test:runner:1.5.0-alpha03"
+
+
+
+
+
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
+    androidTestImplementation 'junit:junit:4.12'
+    //androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
 }
